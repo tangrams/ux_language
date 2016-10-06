@@ -5,6 +5,9 @@
 }
 
 .ux_language-selector {
+    position: absolute;
+    top: 0px;
+    left: 2px;
     width: 21px;
     height: 26px;
     -webkit-appearance: none;
@@ -15,4 +18,16 @@
     text-indent: 5px;
     font-size: 13px;
     font-weight: 600;
+    background-color: white;
+    z-index: 10000000;
+}
+
+.ux_language-icon {
+    position: absolute;
+    top: 0px;
+    left: 2px;
+    width: 21px;
+    height: 26px;
+    z-index: 100;
+    text-overflow: '';
 }
