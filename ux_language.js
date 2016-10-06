@@ -51,8 +51,10 @@ L.UxLanguage = L.Control.extend({
 
             if (onchange.target.value == 'false') {
                 selector.style.backgroundColor = "rgba(0, 0, 0, 0)"
+                image.style.visibility = 'visible';
             } else {
                 selector.style.backgroundColor = '#FFF';
+                image.style.visibility = 'hidden';
             }
         }
 
