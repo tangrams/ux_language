@@ -33,3 +33,29 @@ layers:
                     fill: black
                     stroke: { color: white, width: 6px }
 ```
+
+Then is time to load the leaflet pluging it self. For that in the html of you map add:
+
+```html
+    <!-- Language Selector for Tangram -->
+    <link rel="stylesheet" href="https://tangrams.github.io/ux_language/ux_language.css" />
+    <script src="https://tangrams.github.io/ux_language/ux_language.js"></script>
+```
+
+And in the JavaScript section where you load the Leaflet and Tangram maps do:
+
+```javascript
+    // Leafleat Map
+    var map = L.map('map', {maxZoom: 20});
+
+    // Tangram Layer
+    var layer = Tangram.leafletLayer({
+        scene: 'https://tangrams.github.io/tron/tron.yaml',
+        attribution: '&copy; OSM contributors | <a href="https://mapzen.com" target="_blank">Mapzen</a>'
+    }).addTo(map);
+
+    // Now the interesting stuff, the new UxLanguage !!
+    map.addControl(L.uxLanguage({ scene: layer.scene }));
+```
+
+Enjoy!
