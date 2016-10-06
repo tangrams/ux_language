@@ -1,9 +1,4 @@
-/**
- * Adds a language selector to Leaflet based maps.
- * License: CC0 (Creative Commons Zero), see http://creativecommons.org/publicdomain/zero/1.0/
- * Project page: https://github.com/buche/leaflet-tangram-languageselector
- **/
-L.LanguageSelector = L.Control.extend({
+L.UxLanguage = L.Control.extend({
     options: {
         languages: {
             // Language selector
@@ -19,9 +14,9 @@ L.LanguageSelector = L.Control.extend({
             'Korean': 'ko',
             'Chinese': 'zh'
         },
+        global: 'ux_language',
         position: 'topleft',
-        scene: null,
-        global: ''
+        scene: null
     },
 
     initialize: function(options) {
@@ -29,23 +24,22 @@ L.LanguageSelector = L.Control.extend({
     },
 
     onAdd: function(map) {
-        var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom leaflet-tangram-languageselector-container');
-        var languageSelector = L.DomUtil.create('SELECT', 'leaflet-tangram-languageselector-selector', container);
+        var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom ux_language-container');
+        var UxLanguage = L.DomUtil.create('SELECT', 'ux_language-selector', container);
         for (var key in this.options.languages) {
-            var language = L.DomUtil.create('option', 'leaflet-tangram-languageselector-option');
+            var language = L.DomUtil.create('option', 'ux_language-option');
             if (!this.options.languages[key]) {
-                language.text = '(default)';
+                language.text = '-- - (Default)';
             }
             else {
                 language.text = this.options.languages[key] + ' - ' + key;
             }
             language.value = this.options.languages[key];
-            languageSelector.add(language);
+            UxLanguage.add(language);
         }
         var options = this.options;
-        languageSelector.selectedIndex = 3;
-        languageSelector.onchange = function(onchange){
-            console.log(options)
+        UxLanguage.selectedIndex = 0;
+        UxLanguage.onchange = function(onchange){
             console.log('Changing language for', onchange.target.value);
             options.scene.config.global[options.global] = onchange.target.value;
             options.scene.updateConfig();
@@ -55,4 +49,4 @@ L.LanguageSelector = L.Control.extend({
     }
 });
 
-L.languageSelector = function(options) { return new L.LanguageSelector(options); };
+L.uxLanguage = function(options) { return new L.UxLanguage(options); };

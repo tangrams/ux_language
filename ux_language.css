@@ -1,10 +1,10 @@
-.leaflet-tangram-languageselector-container {
+.ux_language-container {
     width: 26px;
     height: 26px;
     background-color: white;
 }
 
-.leaflet-tangram-languageselector-selector {
+.ux_language-selector {
     width: 21px;
     height: 26px;
     -webkit-appearance: none;
