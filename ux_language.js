@@ -1,21 +1,23 @@
+// https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 L.UxLanguage = L.Control.extend({
     options: {
         languages: {
             // Language selector
             '(default)': false,
-            'Arabic': 'ar',
-            'German': 'de',
+            'Arabic - العربية': 'ar',
+            'Chinese - 中文': 'zh',
+            'German - Deutsch': 'de',
             'English': 'en',
-            'Spanish': 'es',
-            'French': 'fr',
-            'Greek': 'gr',
-            'Japanese': 'ja',
-            'Russian': 'ru',
-            'Korean': 'ko',
-            'Chinese': 'zh'
+            'Spanish - Español': 'es',
+            'French - Français': 'fr',
+            'Greek - ελληνικά': 'gr',
+            'Japanese - 日本語': 'ja',
+            'Korean - 한국어': 'ko',
+            'Russian - Русский': 'ru'
         },
         global: 'ux_language',
         position: 'topleft',
+        icon: 'https://tangrams.github.io/ux_language/ux_language_01.png',
         scene: null
     },
 
@@ -26,7 +28,7 @@ L.UxLanguage = L.Control.extend({
     onAdd: function(map) {
         var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom ux_language-container');
         var image =  L.DomUtil.create('img', 'ux_language-icon', container);
-        image.src = 'https://tangrams.github.io/ux_language/ux_language.png';
+        image.src = this.options.icon;
 
         var selector = L.DomUtil.create('SELECT', 'ux_language-selector', container);
         selector.style.backgroundColor = "rgba(0, 0, 0, 0)"
