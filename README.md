@@ -1,6 +1,6 @@
 # Ux Language for [Tangram](https://mapzen.com/products/tangram/) and [Mapzen's vector Tiles](https://mapzen.com/projects/vector-tiles/)
 
-![](ux_language.gif)
+![](docs/img/ux_language.gif)
 
 [Mapzen's vector tiles](https://mapzen.com/projects/vector-tiles/) support other languanges beside english, and [Tangram](https://mapzen.com/products/tangram/) is ready to handle it. This is a simple Leaflet plugin that can talk to [Tangram JS](https://github.com/tangrams/tangram) to help it change to other languages.
 
