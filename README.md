@@ -6,15 +6,35 @@
 
 ## how it works?
 
+### Mapzen.js and Mapzen basemap styles
+
+Mapzen basemap styles include a global property to set the label language. By setting the `global.ux_language` to a valid 2 character language code the map will redraw the labels in that language (when available, else they default back to the local name).
+
+Import this Leaflet plugin to add a language controller:
+
+```html
+    <!-- Language Selector for Tangram -->
+    <link rel="stylesheet" href="https://tangrams.github.io/ux_language/ux_language.css" />
+    <script src="https://tangrams.github.io/ux_language/ux_language.js"></script>
+```
+
+Once the Tangram map object has loaded, add the Leaflet controller: 
+
+```
+map.on('tangramloaded', function(e) {
+  map.addControl(L.uxLanguage( e.tangramLayer ));
+});
+```
+
+### do-it-yourself
+
 Because [Tangram](https://mapzen.com/products/tangram/) is higly configurable this needs a little of wiring on you [`.yaml` scene file](https://mapzen.com/documentation/tangram/Scene-file/).
 
-First you need to import the `ux_language.yaml` to your scene file like this:
+First you need to import the `ux_language.yaml` in the `docs/` directory to your scene file like this:
 
 ```yaml
 import:
     - https://tangrams.github.io/ux_language/ux_language.yaml
-
-...
 
 ```
 
