@@ -4,31 +4,24 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
     <title>Language-selector</title>
-    <!-- 3rd party libraries -->
-        <!-- Leaflet -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-rc.3/leaflet.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-rc.3/leaflet.js"></script>
-        <!-- bog-standard leaflet URL hash -->
-        <script type="text/javascript" src="https://cdn.rawgit.com/mlevans/leaflet-hash/master/leaflet-hash.js"></script>
-        <!-- Main tangram library -->
-        <script src="https://mapzen.com/tangram/0.12/tangram.min.js"></script>
-
-    <!-- End of 3rd party libraries -->
 
     <!-- Language Selector for Tangram -->
     <link rel="stylesheet" href="./ux_language.css" />
+    <link rel='stylesheet' href='https://mapzen.com/common/styleguide/styles/blog.css' type='text/css'>
+    <link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
+    <script src="https://mapzen.com/js/mapzen.min.js"></script>
     <script src="./ux_language.js"></script>
 
     <style>
-        body {
+        html, body {
+            width: 100%;
+            height: 100%;
             margin: 0px;
             border: 0px;
             padding: 0px;
             overflow: hidden;
         }
-
         #map {
             position: absolute;
             background: black;
@@ -45,85 +38,59 @@
     <body>
         <div class="label" id="popup"></div>
         <div id="map"></div>
+        <script>
+          L.Mapzen.apiKey = 'mapzen-yqkwcL3';
 
-        <!-- Demo module -->
-        <script type="text/javascript">
-            var map = (function () {
-                'use strict';
+          var map = L.Mapzen.map('map', {
+              center: [31.2141, 121.4843],
+              zoom: 15,
+              maxZoom: 20,
+              tangramOptions: {
+                scene: L.Mapzen.BasemapStyles.Refill
+              }
+            });
 
-                var map_start_location = [31.2141,121.4843, 15];
+          //window.options = map.options.tangramOptions;
+			//           { import: [tg_baseScene, 'themes/black.yaml'], global: tg_global },
 
-                /*** URL parsing ***/
+          var tangramLayer;
 
-                // leaflet-style URL hash pattern:
-                // ?style.yaml#[zoom],[lat],[lng]
-                var url_hash = window.location.hash.slice(1).split('/');
-                if (url_hash.length == 3) {
-                    map_start_location = [url_hash[1],url_hash[2], url_hash[0]];
-                    // convert from strings
-                    map_start_location = map_start_location.map(Number);
-                }
+          window.layer = tangramLayer;
 
-                var animated = true;
-                var url_search = window.location.search.slice(1);
-                if (url_search.length > 0) {
-                    if (url_search.indexOf('animated=false') > -1) {
-                        animated = false;
-                    }
-                }
+           map.on('tangramloaded', function(e) {
+              tangramLayer = e.tangramLayer;
 
-                L.Mapzen.apiKey = 'mapzen-yqkwcL3';
-              
-                /*** Map ***/
-                var map = L.map('map', {maxZoom: 20});
+              map.addControl(L.uxLanguage( tangramLayer ));
+           });
 
-                var layer = Tangram.leafletLayer({
-                    scene: 'https://tangrams.github.io/tron-style/tron-style.yaml',
-                    attribution: '&copy; OSM contributors | <a href="https://mapzen.com" target="_blank">Mapzen</a>'
-                });
 
-                window.layer = layer;
-                var scene = layer.scene;
-                window.scene = scene;
+          //var scene = tangramLayer.scene;
+          //window.scene = scene;
 
-                map.setView(map_start_location.slice(0, 2), map_start_location[2]);
-                var hash = new L.Hash(map);
+          L.Mapzen.hash({map: map});
+          L.Mapzen.locator().addTo(map);
+          L.Mapzen.geocoder().addTo(map);   //'search-Y2Sr2RD'
 
-                // Resize map to window
-                function resizeMap() {
-                    document.getElementById('map').style.width = window.innerWidth + 'px';
-                    document.getElementById('map').style.height = window.innerHeight + 'px';
-                    map.invalidateSize(false);
-                }
+          window.addEventListener('load', function () {
+            // layer.addTo(map);
+            // Now the interesting stuff, the new UxLanguage:
+            //map.addControl(L.uxLanguage({ scene: L.Mapzen.BasemapStyles.Refill }));
 
-                window.addEventListener('resize', resizeMap);
-                resizeMap();
+//             map.addControl(L.uxLanguage( tangramLayer ));
+            //map.addControl(L.uxLanguage( map.options.tangramOptions ));
+        });
 
-                window.addEventListener('load', function () {
-                    layer.addTo(map);
-                    // Now the interesting stuff, the new UxLanguage:
-                    map.addControl(L.uxLanguage({ scene: scene }));
-                });
-
-                return map;
-            }());
-
-            
-            </script>
-
-        <!-- Adding a script block to post message to the parent container (think iframed demos) -->
-        <script type="text/javascript">
-          window.addEventListener("hashchange",function(){parent.postMessage(window.location.hash, "*")});
+          L.Mapzen.bug({
+            name: 'Leaflet-Tangram Language Selector',
+            link: '/products/maps/',
+            tweet: 'Check Leaflet-Tangram Language Selector',
+            repo: 'https://github.com/tangrams/language-selector/'
+          });
         </script>
 
         <!-- Mapzen map UI -->
+<!--
         <script src='https://mapzen.com/common/ui/mapzen-ui.min.js'></script>
-        <script>
-                MPZN.bug({
-                name: 'Leaflet-Tangram Language Selector',
-                tweet: 'Check Leaflet-Tangram Language Selector',
-                repo: 'https://github.com/tangrams/language-selector/'
-            });
-        </script>
+ -->
     </body>
 </html>

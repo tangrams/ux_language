@@ -22,6 +22,8 @@ L.UxLanguage = L.Control.extend({
     },
 
     initialize: function(options) {
+        console.log( "init options" );
+        console.log( options );
         L.Util.setOptions(this, options);
     },
 
@@ -32,7 +34,7 @@ L.UxLanguage = L.Control.extend({
 
         var selector = L.DomUtil.create('SELECT', 'ux_language-selector', container);
         selector.style.backgroundColor = "rgba(0, 0, 0, 0)"
-        
+
         for (var key in this.options.languages) {
             var language = L.DomUtil.create('option', 'ux_language-option');
             if (!this.options.languages[key]) {
@@ -46,9 +48,22 @@ L.UxLanguage = L.Control.extend({
         }
         var options = this.options;
         selector.selectedIndex = 0;
+
         selector.onchange = function(onchange){
             console.log('Changing language for', onchange.target.value);
-            options.scene.config.global[options.global] = onchange.target.value;
+
+            console.log( options );
+            console.log( this.options );
+            console.log( options.global );
+
+            if(tangramLayer) {
+              //tangramLayer.scene.load( { "import": [options.scene], global: { options.global: onchange.target.value } );
+             }
+
+            //options.scene.config.global[options.global] = onchange.target.value;
+            //options.scene.updateConfig();
+
+            options.scene.load({ "import": [ L.Mapzen.BasemapStyles.Refill ], global: { options.global: onchange.target.value });
             options.scene.updateConfig();
 
             if (onchange.target.value == 'false') {
