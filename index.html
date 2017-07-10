@@ -46,12 +46,9 @@
               zoom: 15,
               maxZoom: 20,
               tangramOptions: {
-                scene: L.Mapzen.BasemapStyles.RefillMoreLabels
+                scene: L.Mapzen.BasemapStyles.TronMoreLabels
               }
             });
-
-          //window.options = map.options.tangramOptions;
-			//           { import: [tg_baseScene, 'themes/black.yaml'], global: tg_global },
 
           var tangramLayer;
 
@@ -64,21 +61,9 @@
            });
 
 
-          //var scene = tangramLayer.scene;
-          //window.scene = scene;
-
           L.Mapzen.hash({map: map});
           L.Mapzen.locator().addTo(map);
           L.Mapzen.geocoder().addTo(map);   //'search-Y2Sr2RD'
-
-          window.addEventListener('load', function () {
-            // layer.addTo(map);
-            // Now the interesting stuff, the new UxLanguage:
-            //map.addControl(L.uxLanguage({ scene: L.Mapzen.BasemapStyles.Refill }));
-
-//             map.addControl(L.uxLanguage( tangramLayer ));
-            //map.addControl(L.uxLanguage( map.options.tangramOptions ));
-        });
 
           L.Mapzen.bug({
             name: 'Leaflet-Tangram Language Selector',

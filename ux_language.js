@@ -22,8 +22,6 @@ L.UxLanguage = L.Control.extend({
     },
 
     initialize: function(options) {
-        console.log( "init options" );
-        console.log( options );
         L.Util.setOptions(this, options);
     },
 
@@ -50,20 +48,14 @@ L.UxLanguage = L.Control.extend({
         selector.selectedIndex = 0;
 
         selector.onchange = function(onchange){
-            console.log('Changing language for', onchange.target.value);
+            console.log('Changing language to:', onchange.target.value);
 
-            console.log( options );
-            console.log( this.options );
-            console.log( options.global );
-
-            if(tangramLayer) {
-              //tangramLayer.scene.load( { "import": [options.scene], global: { options.global: onchange.target.value } );
-             }
-
-            //options.scene.config.global[options.global] = onchange.target.value;
-            //options.scene.updateConfig();
-
-            options.scene.load({ "import": [ L.Mapzen.BasemapStyles.Refill ], global: { options.global: onchange.target.value });
+            options.scene.load( {
+              import: [ L.Mapzen.BasemapStyles.TronMoreLabels ],
+              global: {
+                ux_language: onchange.target.value
+              }
+            });
             options.scene.updateConfig();
 
             if (onchange.target.value == 'false') {
