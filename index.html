@@ -7,9 +7,9 @@
     <title>Language-selector</title>
 
     <!-- Language Selector for Tangram -->
-    <link rel="stylesheet" href="./ux_language.css" />
     <link rel='stylesheet' href='https://mapzen.com/common/styleguide/styles/blog.css' type='text/css'>
     <link rel="stylesheet" href="https://mapzen.com/js/mapzen.css">
+    <link rel="stylesheet" href="./ux_language.css" />
     <script src="https://mapzen.com/js/mapzen.min.js"></script>
     <script src="./ux_language.js"></script>
 
@@ -38,6 +38,7 @@
     <body>
         <div class="label" id="popup"></div>
         <div id="map"></div>
+
         <script>
           L.Mapzen.apiKey = 'mapzen-yqkwcL3';
 
@@ -50,14 +51,8 @@
               }
             });
 
-          var tangramLayer;
-
-          window.layer = tangramLayer;
-
            map.on('tangramloaded', function(e) {
-              tangramLayer = e.tangramLayer;
-
-              map.addControl(L.uxLanguage( tangramLayer ));
+              map.addControl(L.uxLanguage( e.tangramLayer ));
            });
 
 
@@ -73,9 +68,5 @@
           });
         </script>
 
-        <!-- Mapzen map UI -->
-<!--
-        <script src='https://mapzen.com/common/ui/mapzen-ui.min.js'></script>
- -->
     </body>
 </html>
