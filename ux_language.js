@@ -27,7 +27,7 @@ L.UxLanguage = L.Control.extend({
         },
         global: 'ux_language',
         position: 'topleft',
-        icon: 'https://tangrams.github.io/ux_language/ux_language_00.png',
+        icon: 'https://tangrams.github.io/ux_language/ux_language.png',
         scene: null
     },
 
