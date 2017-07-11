@@ -4,20 +4,30 @@ L.UxLanguage = L.Control.extend({
         languages: {
             // Language selector
             '(default)': false,
-            'Arabic - العربية': 'ar',
-            'Chinese - 中文': 'zh',
-            'German - Deutsch': 'de',
+            'العربية (Arabic)': 'ar',
+            '中文 (Chinese)': 'zh',
             'English': 'en',
-            'Spanish - Español': 'es',
-            'French - Français': 'fr',
-            'Greek - ελληνικά': 'gr',
-            'Japanese - 日本語': 'ja',
-            'Korean - 한국어': 'ko',
-            'Russian - Русский': 'ru'
+            'français (French)': 'fr',
+            'Русский (Russian)': 'ru',
+            'español (Spanish)': 'es',
+            'বাংলা (Bengali)': 'bn',
+            'Nederlands (Dutch)': 'nl',
+            'Deutsch (German)': 'de',
+            'ελληνικά (Greek)': 'gr',
+            'हिन्दी (Hindi)': 'hi',
+            'Bahasa Indonesia (Indonesian)': 'id',
+            'italiano (Italian)': 'it',
+            '日本語 (Japanese)': 'ja',
+            '한국어 (Korean)': 'ko',
+            'Polski (Polish)': 'pl',
+            'Português (Portuguese)': 'pt',
+            'Svenska (Swedish)': 'sv',
+            'Türkçe (Turkish)': 'tr',
+            'Tiếng Việt (Vietnamese)': 'vi'
         },
         global: 'ux_language',
         position: 'topleft',
-        icon: 'https://tangrams.github.io/ux_language/ux_language_01.png',
+        icon: 'https://tangrams.github.io/ux_language/ux_language.png',
         scene: null
     },
 
@@ -32,7 +42,7 @@ L.UxLanguage = L.Control.extend({
 
         var selector = L.DomUtil.create('SELECT', 'ux_language-selector', container);
         selector.style.backgroundColor = "rgba(0, 0, 0, 0)"
-        
+
         for (var key in this.options.languages) {
             var language = L.DomUtil.create('option', 'ux_language-option');
             if (!this.options.languages[key]) {
@@ -46,9 +56,16 @@ L.UxLanguage = L.Control.extend({
         }
         var options = this.options;
         selector.selectedIndex = 0;
+
         selector.onchange = function(onchange){
-            console.log('Changing language for', onchange.target.value);
-            options.scene.config.global[options.global] = onchange.target.value;
+            console.log('Changing language to:', onchange.target.value);
+
+            options.scene.load( {
+              import: [ L.Mapzen.BasemapStyles.TronMoreLabels ],
+              global: {
+                ux_language: onchange.target.value
+              }
+            });
             options.scene.updateConfig();
 
             if (onchange.target.value == 'false') {
